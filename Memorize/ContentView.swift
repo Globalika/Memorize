@@ -9,15 +9,19 @@ import SwiftUI
 
 struct ContentView: View {
     var emojis: [String] = ["🚗", "🚕", "🚌", "🚙", "🚎", "🏎", "🚓", "🚑"
-                            , "🚒", "🚐", "🛻", "🚚", "🚛", "🚜", "🛺", "🚆", "🚖", "🚠", "🚟", "🚃"]
-    @State var emojiCount : Int = 4
+                            , "🚒", "🚐", "🛻", "🚚", "🚛", "🚜", "🛺", "🚆", "🚖", "🚠", "🚟", "🚃","🛴","🚲","🛵","🏍"]
+    @State var emojiCount : Int = 24
     var body: some View {
         VStack {
-            HStack {
-                ForEach(emojis[0..<emojiCount], id : \.self) { emoji in
-                    CardViev(content: emoji)
+            ScrollView {
+                LazyVGrid(columns: [GridItem(
+                    .adaptive(minimum: 65))]) {
+                    ForEach(emojis[0..<emojiCount], id : \.self) { emoji in
+                        CardViev(content: emoji).aspectRatio(2/3, contentMode:  .fit)
+                    }
                 }
             }
+            .foregroundColor(.red)
             Spacer()
             HStack {
                 add
@@ -28,7 +32,6 @@ struct ContentView: View {
             .padding(.horizontal)
         }
         .padding(.horizontal)
-        .foregroundColor(.red)
     }
     
     var remove: some View {
@@ -63,7 +66,7 @@ struct CardViev : View {
            
            if isFaceUp {
                shape.fill().foregroundColor(.white)
-               shape.stroke(lineWidth: 3)
+               shape.strokeBorder(lineWidth: 8)
                Text(content).font(.largeTitle)
            } else {
                shape.fill()
@@ -109,7 +112,9 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .preferredColorScheme(.dark)
+.previewInterfaceOrientation(.portrait)
         ContentView()
             .preferredColorScheme(.light)
+.previewInterfaceOrientation(.landscapeLeft)
     }
 }
