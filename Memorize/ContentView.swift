@@ -8,48 +8,77 @@
 import SwiftUI
 
 struct ContentView: View {
-    var emojis: [String] = ["🚗", "🚕", "🚌", "🚙", "🚎", "🏎", "🚓", "🚑"
-                            , "🚒", "🚐", "🛻", "🚚", "🚛", "🚜", "🛺", "🚆", "🚖", "🚠", "🚟", "🚃"]
-    @State var emojiCount : Int = 4
+    @State var emojis: Array<String> = carEmojis
+    @State var emojiCount: Int = 24
     var body: some View {
         VStack {
-            HStack {
-                ForEach(emojis[0..<emojiCount], id : \.self) { emoji in
-                    CardViev(content: emoji)
+            Text("Memorize!").font(.title).foregroundColor(.blue)
+            Spacer()
+            ScrollView {
+                LazyVGrid(columns: [GridItem(
+                    .adaptive(minimum: 65))]) {
+                        ForEach(emojis[0..<emojiCount], id : \.self) {
+                        emoji in
+                        CardViev(content: emoji).aspectRatio(2/3, contentMode:  .fit)
+                    }
                 }
             }
+            .foregroundColor(.red)
             Spacer()
             HStack {
-                add
+                carTheme
                 Spacer()
-                remove
+                faceTheme
+                Spacer()
+                animalTheme
             }
             .font(.largeTitle)
             .padding(.horizontal)
         }
         .padding(.horizontal)
-        .foregroundColor(.red)
     }
-    
-    var remove: some View {
-        Button {
-            if emojiCount > 1 {
-                emojiCount -= 1
+    var carTheme: some View {
+        VStack{
+            Button {
+                emojis = carEmojis.shuffled()
+                emojiCount = 24
+            } label: {
+                Image(systemName: "car")
             }
-        } label: {
-            Image(systemName: "minus.circle")
+            Text("cars").foregroundColor(.blue).font(.subheadline)
         }
     }
-    var add: some View {
-        Button {
-            if emojiCount < emojis.count {
-                emojiCount += 1
+    var faceTheme: some View {
+        VStack{
+            Button {
+                emojis = faceEmojis.shuffled()
+                emojiCount = 10
+            } label: {
+                Image(systemName: "face.smiling")
             }
-        } label: {
-            Image(systemName: "plus.circle")
+            Text("faces").foregroundColor(.blue).font(.subheadline)
+        }
+    }
+    var animalTheme: some View {
+        VStack{
+            Button {
+                emojis = animalEmojis.shuffled()
+                emojiCount = 20
+            } label: {
+                Image(systemName: "hare")
+            }
+            Text("animals").foregroundColor(.blue).font(.subheadline)
         }
     }
 }
+
+var carEmojis = ["🚗", "🚕", "🚌", "🚙", "🚎", "🏎", "🚓", "🚑"
+                , "🚒", "🚐", "🛻", "🚚", "🚛", "🚜", "🛺", "🚆", "🚖", "🚠", "🚟", "🚃","🛴","🚲","🛵","🏍"]
+var faceEmojis = ["🤣","😇","😜","🤢","😷","🥴","😵‍💫","🥱","🤥","🙄"]
+
+var animalEmojis = ["🐶","🐱","🐭","🐹","🐰","🦊","🐻","🐼","🐨","🐯","🦁","🐮"
+                  ,"🐷","🐸","🐵","🐔","🦉","🐥","🦆","🦄"]
+
 struct CardViev : View {
     var content: String
     @State var isFaceUp: Bool = true
@@ -60,7 +89,7 @@ struct CardViev : View {
            
            if isFaceUp {
                shape.fill().foregroundColor(.white)
-               shape.stroke(lineWidth: 3)
+               shape.strokeBorder(lineWidth: 4)
                Text(content).font(.largeTitle)
            } else {
                shape.fill()
@@ -105,8 +134,14 @@ struct CardViev : View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .previewDevice("iPhone 12")
             .preferredColorScheme(.dark)
+.previewInterfaceOrientation(.portrait)
         ContentView()
             .preferredColorScheme(.light)
+.previewInterfaceOrientation(.landscapeLeft)
+        ContentView()
+            .previewDevice("iPhone 11")
+        ContentView()
     }
 }
