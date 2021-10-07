@@ -49,10 +49,7 @@ struct ContentView: View {
             Image(systemName: "plus.circle")
         }
     }
-    
-    
 }
-
 struct CardViev : View {
     var content: String
     @State var isFaceUp: Bool = true
