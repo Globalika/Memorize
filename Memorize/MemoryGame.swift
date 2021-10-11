@@ -6,14 +6,17 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct MemoryGame<CardContect> where CardContect: Equatable {
     
     private(set) var cards: Array<Card>
     private(set) var score = 0
     private var seenCards = Set<Int>()
-    private var indexOfTheOneAndOnlyFaceUpCard: Int?
-    
+    private var indexOfTheOneAndOnlyFaceUpCard: Int? {        
+        get { return cards.indices.filter ({ cards[$0].isFaceUp }).oneAndOnly }
+        set { cards.indices.forEach { cards[$0].isFaceUp = ($0 == newValue) } }
+    }
     mutating func choose(_ card: Card) {
         if let chosenIndex = cards.firstIndex(where: { $0.id == card.id }), !cards[chosenIndex].isFaceUp,
             !cards[chosenIndex].isMatched
@@ -35,21 +38,15 @@ struct MemoryGame<CardContect> where CardContect: Equatable {
                     seenCards.insert(cards[chosenIndex].id)
                     seenCards.insert(cards[potentialMatchIndex].id)
                 }
-                indexOfTheOneAndOnlyFaceUpCard = nil
-            }
-            else
-            {
-                for index in cards.indices {
-                    cards[index].isFaceUp = false
-                }
+                cards[chosenIndex].isFaceUp = true
+            } else {
                 indexOfTheOneAndOnlyFaceUpCard = chosenIndex
             }
-            cards[chosenIndex].isFaceUp = true
         }
     }
     
     init(numberOfPairsOfCards: Int, createCardContent: (Int) -> CardContect) {
-        cards = Array<Card>()
+        cards = []
         for pairIndex in 0..<numberOfPairsOfCards {
             let content = createCardContent(pairIndex)
             cards.append(Card(content: content, id: pairIndex*2))
@@ -59,9 +56,19 @@ struct MemoryGame<CardContect> where CardContect: Equatable {
     }
     
     struct Card : Identifiable {
-        var isFaceUp: Bool = false
-        var isMatched:  Bool = false
-        var content: CardContect
-        var id: Int
+        var isFaceUp = false
+        var isMatched = false
+        let content: CardContect
+        let id: Int
+    }
+}
+
+extension Array {
+    var oneAndOnly: Element? {
+        if count == 1 {
+            return first
+        } else {
+            return nil
+        }
     }
 }
