@@ -16,6 +16,7 @@
 		89A7067A27148D37000B28EA /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A7067927148D37000B28EA /* AspectVGrid.swift */; };
 		89A7067C2714A3C9000B28EA /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A7067B2714A3C9000B28EA /* Pie.swift */; };
 		89AE17EF27132DDD0028FBCB /* EmojiMemoryTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AE17EE27132DDD0028FBCB /* EmojiMemoryTheme.swift */; };
+		89B5BED22719E82C0085381A /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B5BED12719E82C0085381A /* Cardify.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		89A7067927148D37000B28EA /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
 		89A7067B2714A3C9000B28EA /* Pie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pie.swift; sourceTree = "<group>"; };
 		89AE17EE27132DDD0028FBCB /* EmojiMemoryTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiMemoryTheme.swift; sourceTree = "<group>"; };
+		89B5BED12719E82C0085381A /* Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardify.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				8951A94F270EF8A60022FD26 /* EmojiMemoryGameView.swift */,
 				89A7067927148D37000B28EA /* AspectVGrid.swift */,
 				89A7067B2714A3C9000B28EA /* Pie.swift */,
+				89B5BED12719E82C0085381A /* Cardify.swift */,
 				8951A951270EF8A80022FD26 /* Assets.xcassets */,
 				8951A953270EF8A80022FD26 /* Preview Content */,
 			);
@@ -154,6 +157,7 @@
 			files = (
 				89AE17EF27132DDD0028FBCB /* EmojiMemoryTheme.swift in Sources */,
 				8975A24827103A960019C3BE /* MemoryGame.swift in Sources */,
+				89B5BED22719E82C0085381A /* Cardify.swift in Sources */,
 				89A7067A27148D37000B28EA /* AspectVGrid.swift in Sources */,
 				8951A950270EF8A60022FD26 /* EmojiMemoryGameView.swift in Sources */,
 				89A7067C2714A3C9000B28EA /* Pie.swift in Sources */,
