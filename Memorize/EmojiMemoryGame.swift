@@ -7,20 +7,21 @@
 
 import SwiftUI
 
-
-class  EmojiMemoryGame : ObservableObject {
+class EmojiMemoryGame : ObservableObject {
     typealias Card = MemoryGame<String>.Card
     
     @Published private var model: MemoryGame<String>
-    private(set) var theme: EmojiMemoryTheme
+    var theme: EmojiMemoryTheme
     
-    
-    init(theme: EmojiMemoryTheme? = nil){
-        self.theme = theme ?? EmojiMemoryTheme.themes.randomElement()!
-        let emoji = self.theme.emojis.shuffled()
-        self.model = MemoryGame<String>(numberOfPairsOfCards: self.theme.numbersOfPairs) { pairIndex in
-            emoji[pairIndex]
+    private static func createMemoryGame(theme: EmojiMemoryTheme) -> MemoryGame<String> {
+        MemoryGame<String>(numberOfPairsOfCards: theme.numbersOfPairs) { pairIndex in
+            theme.emojis[pairIndex]
         }
+    }
+    
+    init(theme: EmojiMemoryTheme){
+        self.theme = theme
+        self.model = EmojiMemoryGame.createMemoryGame(theme: theme)
     }
     
     //MARK: - Access to the model
@@ -44,11 +45,6 @@ class  EmojiMemoryGame : ObservableObject {
     }
     
     func restart() {
-        
-        self.theme = EmojiMemoryTheme.themes.randomElement()!
-        let emoji = self.theme.emojis.shuffled()
-        self.model = MemoryGame<String>(numberOfPairsOfCards: self.theme.numbersOfPairs) { pairIndex in
-            emoji[pairIndex]
-        }
+        model = EmojiMemoryGame.createMemoryGame(theme: theme)
     }
 }

@@ -34,7 +34,6 @@ struct Cardify: AnimatableModifier {
         .rotation3DEffect(Angle.degrees(rotation), axis: (x: 0, y: 1, z: 0))
     }
     
-    
     private struct DrawingConstants {
         static let cornerRadius: CGFloat = 20
         static let lineWidth: CGFloat = 3
