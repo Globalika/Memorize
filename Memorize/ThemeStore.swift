@@ -33,14 +33,16 @@ class ThemeStore: ObservableObject {
     
     init(named name: String) {
         self.name = name
+        restoreUserDefaults()
         if themes.isEmpty {
             insertTheme(named: "Halloween", emojis: ["👻", "🎃", "🕷️", "🍬", "💀"], color: .orange)
             insertTheme(named: "Christmas", emojis: ["🎅", "⛪", "🌟", "❄️", "⛄", "🎄", "🎁", "🧦"], color: .blue)
             insertTheme(named: "Transport", emojis: ["🚗", "🚕", "🚙", "🚌", "🚎", "🏎", "🚓", "🚑", "🚒", "🚐", "🛻", "🚚", "🚛", "🚜", "🛵", "🛺", "🚔", "🚍", "🚘", "🚖", "✈️", "🚝", "🚢", "🚁"], numbersOfPairs: 10, color: .yellow)
             insertTheme(named: "Sports", emojis: ["⚽️", "🏀", "🏈", "⚾️", "🥎", "🎾", "🏐", "🏉", "🎱", "🥏", "🪀", "🏓", "🥊", "🥅", "🥌", "⛸", "🥋"], color: .purple)
             insertTheme(named: "Animals", emojis: ["🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐻‍❄️", "🐨", "🐯", "🦁", "🐮", "🐷", "🐸", "🐵"], color: .green)
+        } else {
+            print("palettes successfully loaded")
         }
-        
     }
     
     func theme(at index: Int) -> EmojiMemoryTheme {

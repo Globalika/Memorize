@@ -11,6 +11,7 @@ class EmojiMemoryGame : ObservableObject {
     typealias Card = MemoryGame<String>.Card
     
     @Published private var model: MemoryGame<String>
+    @Published var dealt = Set<Int>()
     var theme: EmojiMemoryTheme
     
     private static func createMemoryGame(theme: EmojiMemoryTheme) -> MemoryGame<String> {

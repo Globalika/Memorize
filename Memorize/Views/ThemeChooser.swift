@@ -13,13 +13,14 @@ struct ThemeChooser: View {
     @State private var games: [Int: EmojiMemoryGame] = [:]
     @State private var editingTheme: EmojiMemoryTheme?
     @State private var activeGame: EmojiMemoryGame?
-    
+    @State private var dealt = Set<Int>()
     var body: some View {
         NavigationView {
             List {
                 ForEach(store.themes) { theme in
                     if let game = games[theme.id] {
-                        NavigationLink(destination: EmojiMemoryGameView(game: chooseActiveGame(for: theme) ?? game, activeGame: $activeGame)) {
+                        NavigationLink(destination: EmojiMemoryGameView(game: chooseActiveGame(for: theme) ?? game,
+                                                                        activeGame: $activeGame)) {
                             ThemeListItem(theme: theme, editMode: $editMode)
                                 .gesture(editMode == .active ? tap(theme) : nil)
                                 .onChange(of: theme) { theme in
@@ -36,6 +37,7 @@ struct ThemeChooser: View {
                 }
             }
             .navigationTitle("Memorize")
+            .navigationBarTitleDisplayMode(.large)
             .popover(item: $editingTheme) { theme in
                 ThemeEditor(theme: $store.themes[theme])
             }

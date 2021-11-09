@@ -7,10 +7,20 @@
 
 import Foundation
 
-struct MemoryGame<CardContect> where CardContect: Equatable {
+struct MemoryGame<CardContect> where CardContect : Equatable {
     private(set) var cards: Array<Card>
     private(set) var score = 0
     private var seenCards = Set<Int>()
+    
+    init(numberOfPairsOfCards: Int, createCardContent: (Int) -> CardContect) {
+        cards = []
+        for pairIndex in 0..<numberOfPairsOfCards {
+            let content = createCardContent(pairIndex)
+            cards.append(Card(content: content, id: pairIndex*2))
+            cards.append(Card(content: content, id: pairIndex*2+1))
+        }
+        cards.shuffle()
+    }
     
     private var indexOfTheOneAndOnlyFaceUpCard: Int? {        
         get { return cards.indices.filter ({ cards[$0].isFaceUp }).oneAndOnly }
@@ -46,16 +56,6 @@ struct MemoryGame<CardContect> where CardContect: Equatable {
     }
     
     mutating func shuffle() {
-        cards.shuffle()
-    }
-    
-    init(numberOfPairsOfCards: Int, createCardContent: (Int) -> CardContect) {
-        cards = []
-        for pairIndex in 0..<numberOfPairsOfCards {
-            let content = createCardContent(pairIndex)
-            cards.append(Card(content: content, id: pairIndex*2))
-            cards.append(Card(content: content, id: pairIndex*2+1))
-        }
         cards.shuffle()
     }
     
